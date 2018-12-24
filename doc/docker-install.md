@@ -2,27 +2,31 @@
 
 ## Prérequis
 
-* Machine sous Linux avec Docker, Docker Compose et Git installés.
-* Avoir extrait les sources du projet localement.
+- Machine sous Linux avec Docker, Docker Compose et Git installés.
+- Avoir extrait les sources du projet localement.
 
 ## Paramétrage
 
-Si vous avez déjà installé le module et que vous disposez d'un fichier de paramètres vous pouvez le copier directement dans le répertoire du module avec la commande :  
+Si vous avez déjà installé le module et que vous disposez d'un fichier de
+paramètres vous pouvez le copier directement dans le répertoire du module avec
+la commande :
 
     cp parameters.yml ./gestion-compte/app/config/
 
-Si vous ne disposez pas de fichier de paramètres, vous pourrez les saisir manuellement pendant l'installation.
+Si vous ne disposez pas de fichier de paramètres, vous pourrez les saisir
+manuellement pendant l'installation.
 
-Il est nécessaire de configurer une variable d'environnement `DBROOTPWD` avec un mot de passe root permettant l'accès à la base de données.
-Il suffit pour cela de configurer la variable dans le fichier .env situé à la racine du projet.
+Il est nécessaire de configurer une variable d'environnement `DBROOTPWD` avec un
+mot de passe root permettant l'accès à la base de données. Il suffit pour cela
+de configurer la variable dans le fichier .env situé à la racine du projet.
 
 ## Démarrage des conteneurs
 
 Le Docker Compose démarre trois services :
 
-* un conteneur de bases de données (MariaDB) ;
-* un conteneur Adminer pour administrer la base de données ;
-* un conteneur comprenant un serveur Apache et PHP.
+- un conteneur de bases de données (MariaDB) ;
+- un conteneur Adminer pour administrer la base de données ;
+- un conteneur comprenant un serveur Apache et PHP.
 
 Pour démarrer les conteneurs, la commande est
 
@@ -50,7 +54,13 @@ Adminer est disponible sur le port 8080.
 ## Configuration du module
 
     # docker-compose exec --user www-data gestion-membres composer install
-À cette étape vous devrez peut-être saisir différents paramètres de configuration, notamment si c'est votre première installation.
-    # docker-compose exec gestion-membres php bin/console doctrine:schema:create
 
-Aller sur `http://hostname/user/install_admin` pour créer le superadministrateur.
+À cette étape vous devrez peut-être saisir différents paramètres de
+configuration, notamment si c'est votre première installation.
+
+```
+docker-compose exec gestion-membres php bin/console doctrine:migrations:migrate
+```
+
+Aller sur `http://hostname/user/install_admin` pour créer le
+superadministrateur.
